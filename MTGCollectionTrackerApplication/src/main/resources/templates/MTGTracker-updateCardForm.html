@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        .error {color:red}
+    </style>
+</head>
+<body>
+
+    <h1>Update a card count in your collection</h1>
+
+    <form action="#" th:action="@{/form/processUpdateCardForm}" th:object="${searchcard}" method="POST">
+
+
+        <label>
+            <input type="text" th:field="*{cardName}"
+                   class="form-control mb-4 w-250"
+                   placeholder="What card are you updating in your collection?" />
+        </label>
+
+        <span th:if="${#fields.hasErrors('cardName')}"
+              th:errors="*{cardName}"
+              class="error"></span>
+
+        <br><br>
+
+        <label>
+            <input type="text" th:field="*{cardQuantity}"
+                   class="form-control mb-4 w-250"
+                   placeholder="How many copies do you have?" />
+        </label>
+
+        <br><br>
+
+        <span th:if="${#fields.hasErrors('cardQuantity')}"
+              th:errors="*{cardQuantity}"
+              class="error"></span>
+
+        <br><br>
+
+        <label>
+            <input type="text" th:field="*{cardSet}"
+                   class="form-control mb-4 w-250"
+                   placeholder="What set is it from?" />
+        </label>
+
+        <br><br>
+
+        <span th:if="${#fields.hasErrors('cardSet')}"
+              th:errors="*{cardQuantity}"
+              class="error"></span>
+
+        <br><br>
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+    </form>
+
+</body>
+</html>
