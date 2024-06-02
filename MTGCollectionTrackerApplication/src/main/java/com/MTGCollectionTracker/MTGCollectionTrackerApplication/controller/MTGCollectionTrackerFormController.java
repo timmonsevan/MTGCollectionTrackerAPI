@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * controller for mapping forms
+ * one path for each C R U D function-form to be filled out by user
+ * an additional /updateCardFormFilled path autofills the card
+ * parameters based on what card line the update button was pressed
+ * one processing path for each C R U D function-form
+ *
  * @author timmonsevan
  */
 @Controller
@@ -110,6 +115,10 @@ public class MTGCollectionTrackerFormController {
         }
     }
 
+    /**
+     * this method and annotation trim excess white space from entries
+     * as well as coming back isEmpty on null entries
+     */
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
 

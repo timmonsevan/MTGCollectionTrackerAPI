@@ -3,7 +3,7 @@ import com.MTGCollectionTracker.MTGCollectionTrackerApplication.entity.SearchCar
 import org.springframework.ui.Model;
 
 /**
- * interface for methods utilized by FormController
+ * interface for form methods used by controllers
  * @author timmonsevan
  */
 

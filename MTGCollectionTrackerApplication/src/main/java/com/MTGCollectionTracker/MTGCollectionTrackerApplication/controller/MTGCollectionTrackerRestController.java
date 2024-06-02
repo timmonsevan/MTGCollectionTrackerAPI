@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * REST controller
+ * the first path /view returns a list of the cards in the collection
+ * the following four paths are for each C R U D functionality
  * @author timmonsevan
  */
 

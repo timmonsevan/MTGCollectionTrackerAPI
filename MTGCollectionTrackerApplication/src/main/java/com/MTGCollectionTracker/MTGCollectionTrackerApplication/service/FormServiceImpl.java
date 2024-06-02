@@ -19,13 +19,20 @@ public class FormServiceImpl implements FormService {
         this.cardService = theCardService;
     }
 
+    /**
+     * process the search card form and search the collection for the entry
+     */
     @Override
     public String processSearchCardForm(SearchCard searchCard, Model theModel) throws ClassNotFoundException {
 
         theModel.addAttribute("message", cardService.searchCollectionByName(searchCard.getCardName()));
+
         return "messagetemplate";
     }
 
+    /**
+     * process the add card form and add the entry to the collection
+     */
     @Override
     public String processAddCardForm(SearchCard searchCard, Model theModel) throws ClassNotFoundException {
 
@@ -39,6 +46,9 @@ public class FormServiceImpl implements FormService {
         return "messagetemplate";
     }
 
+    /**
+     * process the update card form and update the entry
+     */
     @Override
     public String processUpdateCardForm(SearchCard searchCard, Model theModel) throws ClassNotFoundException {
 
@@ -52,13 +62,20 @@ public class FormServiceImpl implements FormService {
         return "messagetemplate";
     }
 
+    /**
+     * process the remove card form and delete that entry from collection
+     */
     @Override
     public String processRemoveCardForm(SearchCard searchCard, Model theModel) {
 
         theModel.addAttribute("message", cardService.removeCardFromCollection(searchCard.getCardName()));
+
         return "messagetemplate";
     }
 
+    /**
+     * @return the updateCardForm pre-filled with name and quantity in collection
+     */
     @Override
     public String fillUpdateCardForm(int id, Model theModel) {
 

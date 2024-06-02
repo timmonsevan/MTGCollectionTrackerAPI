@@ -3,7 +3,7 @@ import com.MTGCollectionTracker.MTGCollectionTrackerApplication.entity.DatabaseC
 import java.util.List;
 
 /**
- * interface for methods utilized by RESTController
+ * interface for CRUD methods to be utilized by controllers
  * @author timmonsevan
  */
 public interface CardService {
@@ -26,5 +26,5 @@ public interface CardService {
 
     public String removeCardFromCollection(String cardName);
 
-    public String removeCardById(int id);
+    public String removeCardFromCollection(int id);
 }

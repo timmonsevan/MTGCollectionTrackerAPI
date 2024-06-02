@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * service methods for RESTController
+ * service methods for controllers
  * @author timmonsevan
  */
 @Service
@@ -25,11 +25,17 @@ public class CardServiceImpl implements CardService {
         this.cardDAO = theCardDAO;
     }
 
+    /**
+     * @return a card in collection found by its Id number in stored database
+     */
     @Override
     public DatabaseCard findById(int id) {
         return cardDAO.findById(id);
     }
 
+    /**
+     * @return a String List of all cards in collection
+     */
     @Override
     public String viewCollection() {
 
@@ -51,11 +57,18 @@ public class CardServiceImpl implements CardService {
         return collectionList.toString();
     }
 
+    /**
+     * @return List of all cards in stored database collection
+     */
     @Override
     public List<DatabaseCard> listCollection() {
         return new ArrayList<>(cardDAO.findAll());
     }
 
+    /**
+     * searches collection for card by name
+     * @return a message screen
+     */
     @Override
     public String searchCollectionByName(String cardName) throws ClassNotFoundException {
 
@@ -67,7 +80,7 @@ public class CardServiceImpl implements CardService {
         List<String> collectionList = new ArrayList<>();
 
         if (query.isEmpty()) {
-            return "Card with name '" + cardName + "' not found in your collection.";
+            return "Card '" + cardName + "' not found in your collection.";
         }
 
         for (DatabaseCard card : query) {
@@ -80,6 +93,10 @@ public class CardServiceImpl implements CardService {
         return collectionList.toString();
     }
 
+    /**
+     * adds a new card to the collection with a specified quantity
+     * @return a message screen
+     */
     @Override
     @Transactional
     public String addNewCard(String cardName, String numCards) throws ClassNotFoundException {
@@ -122,6 +139,10 @@ public class CardServiceImpl implements CardService {
         return cardName + " was added to your collection.";
     }
 
+    /**
+     * adds a new card to the collection with a specified quantity and set indicator
+     * @return a message screen
+     */
     @Override
     @Transactional
     public String addNewCard(String cardName, String numCards, String set) throws ClassNotFoundException {
@@ -169,6 +190,10 @@ public class CardServiceImpl implements CardService {
         return cardName + " from set " + set + " cannot be found";
     }
 
+    /**
+     * updates a card quantity
+     * @return a message screen
+     */
     @Override
     @Transactional
     public String updateCard(String cardName, String numCards) throws ClassNotFoundException {
@@ -207,6 +232,10 @@ public class CardServiceImpl implements CardService {
         return cardName + " quantity updated";
     }
 
+    /**
+     * update a card's quantity and/or set
+     * @return a message screen
+     */
     @Override
     @Transactional
     public String updateCard(String cardName, String numCards, String set) throws ClassNotFoundException {
@@ -246,6 +275,10 @@ public class CardServiceImpl implements CardService {
         return cardName + " updated";
     }
 
+    /**
+     * removes card from collection based off card name
+     * @return a message screen
+     */
     @Override
     @Transactional
     public String removeCardFromCollection(String cardName) {
@@ -259,9 +292,13 @@ public class CardServiceImpl implements CardService {
         return cardName + " removed from collection.";
     }
 
+    /**
+     * removes a card from the collection based on card Id number in stored database
+     * @return refreshes the main page
+     */
     @Override
     @Transactional
-    public String removeCardById(int id) {
+    public String removeCardFromCollection(int id) {
 
         cardDAO.delete(id);
 

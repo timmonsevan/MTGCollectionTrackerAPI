@@ -23,6 +23,12 @@ public class MTGCollectionTrackerAppController {
         this.cardService = theCardService;
     }
 
+    /**
+     * Default webpage for app
+     * Displays contents of collection listed in order of id asc
+     * also hosts UI for add, searching, updating and deleting entries
+     * @return the HTML path to view our collection and UI
+     */
     @GetMapping(path="/collection")
     public String viewCollection(Model theModel) {
 
@@ -32,8 +38,13 @@ public class MTGCollectionTrackerAppController {
         return "view-collection";
     }
 
+    /**
+     * this path removes a card based on theId
+     * @param theId retrieved by pressing the delete key on the associated card line
+     * @return the returned path refreshes the /app/collection page
+     */
     @GetMapping(path="/remove")
     public String remove(@RequestParam("cardId") int theId) {
-        return cardService.removeCardById(theId);
+        return cardService.removeCardFromCollection(theId);
     }
 }

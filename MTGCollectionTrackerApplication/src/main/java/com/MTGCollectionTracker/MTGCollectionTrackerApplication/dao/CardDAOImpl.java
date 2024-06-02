@@ -22,6 +22,9 @@ public class CardDAOImpl implements CardDAO{
         this.entityManager = entityManager;
     }
 
+    /**
+     * add a card to stored database
+     */
     @Override
     public void save(DatabaseCard theDatabaseCard) {
 
@@ -32,11 +35,17 @@ public class CardDAOImpl implements CardDAO{
         }
     }
 
+    /**
+     * find a card by its Id in stored database
+     */
     @Override
     public DatabaseCard findById(Integer id) {
         return entityManager.find(DatabaseCard.class, id);
     }
 
+    /**
+     * return a List of all cards in collection
+     */
     @Override
     public List<DatabaseCard> findAll() {
 
@@ -45,6 +54,9 @@ public class CardDAOImpl implements CardDAO{
         return theQuery.getResultList();
     }
 
+    /**
+     * searches collection for card by card name
+     */
     @Override
     public List<DatabaseCard> findByName(String name) {
 
@@ -55,11 +67,17 @@ public class CardDAOImpl implements CardDAO{
         return theQuery.getResultList();
     }
 
+    /**
+     * updates a card in collection
+     */
     @Override
     public void update(DatabaseCard theDatabaseCard) {
         entityManager.merge(theDatabaseCard);
     }
 
+    /**
+     * remove a card from collection via the card's name
+     */
     @Override
     public void delete(String name) {
 
@@ -71,6 +89,9 @@ public class CardDAOImpl implements CardDAO{
         }
     }
 
+    /**
+     * remove a card from collection via the card's Id number in the stored database
+     */
     @Override
     public void delete(int id) {
 
@@ -80,6 +101,7 @@ public class CardDAOImpl implements CardDAO{
 
     /**
      * convert card name to title case formatted name
+     * developed by a user on StackOverflow
      */
     public static String toTitleCase(String givenString) {
         String[] arr = givenString.split(" ");
