@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
@@ -12,21 +12,24 @@
 </head>
 <body>
 
+<div class="container" style="padding: 70px; text-align: center">
     <h1>Search for a card in your collection</h1>
 
     <form th:action="@{/form/processSearchCardForm}" th:object="${searchcard}" method="GET">
 
         <label>
             <input type="text" th:field="*{cardName}"
-                   placeholder="What card are you looking for?" />
+                   placeholder="What card are you looking for?"
+                   style="width: 400px"/>
         </label>
 
         <span th:if="${#fields.hasErrors('cardName')}"
                th:errors="*{cardName}"
                class="error"></span>
 
+        <input type="hidden" th:field="*{cardQuantity}" value="1"/>
         <input type="submit" value="Submit" />
     </form>
-
+</div>
 </body>
 </html>

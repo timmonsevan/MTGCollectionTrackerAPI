@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>Add</title>
@@ -12,51 +12,54 @@
 </head>
 <body>
 
-    <h1>Add a card to your collection</h1>
+    <div class="container" style="padding: 70px; text-align: center">
+        <h1>Add a card to your collection</h1>
+        <form th:action="@{/form/processAddCardForm}" th:object="${searchcard}" method="POST">
 
-    <form th:action="@{/form/processAddCardForm}" th:object="${searchcard}" method="POST">
+            <label>
+                <input type="text" th:field="*{cardName}"
+                   placeholder="What card are you adding to your collection?"
+                    style="width: 400px"/>
+            </label>
 
-        <label>
-            <input type="text" th:field="*{cardName}"
-                   placeholder="What card are you adding to your collection?" />
-        </label>
+            <br><br>
 
-        <br><br>
-
-        <span th:if="${#fields.hasErrors('cardName')}"
+            <span th:if="${#fields.hasErrors('cardName')}"
               th:errors="*{cardName}"
               class="error"></span>
 
-        <br><br>
+            <br><br>
 
-        <label>
-            <input type="text" th:field="*{cardQuantity}"
-                   placeholder="How many copies are you adding?" />
-        </label>
+            <label>
+                <input type="text" th:field="*{cardQuantity}"
+                   placeholder="How many copies are you adding?"
+                   style="width: 400px"/>
+            </label>
 
-        <br><br>
+            <br><br>
 
-        <span th:if="${#fields.hasErrors('cardQuantity')}"
+            <span th:if="${#fields.hasErrors('cardQuantity')}"
               th:errors="*{cardQuantity}"
               class="error"></span>
 
-        <br><br>
+            <br><br>
 
-        <label>
-            <input type="text" th:field="*{cardSet}"
-                   placeholder="(Optional) Three-Character set abbreviation" />
-        </label>
+            <label>
+                <input type="text" th:field="*{cardSet}"
+                   placeholder="(Optional) Three-Character set abbreviation"
+                   style="width: 400px"/>
+            </label>
 
-        <br><br>
+            <br><br>
 
-        <span th:if="${#fields.hasErrors('cardSet')}"
+            <span th:if="${#fields.hasErrors('cardSet')}"
               th:errors="*{cardSet}"
               class="error"></span>
 
-        <br><br>
+            <br><br>
 
-        <input type="submit" value="Submit" />
-    </form>
-
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
 </body>
 </html>

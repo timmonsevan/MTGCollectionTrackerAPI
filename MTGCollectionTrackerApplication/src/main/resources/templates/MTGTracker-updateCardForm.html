@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>Update</title>
@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<div class="container" style="padding: 70px; text-align: center">
     <h1>Update a card count in your collection</h1>
 
     <form action="#" th:action="@{/form/processUpdateCardForm}" th:object="${searchcard}" method="POST">
@@ -20,7 +21,8 @@
         <label>
             <input type="text" th:field="*{cardName}"
                    class="form-control mb-4 w-250"
-                   placeholder="What card are you updating in your collection?" />
+                   placeholder="What card are you updating in your collection?"
+                   style="width: 400px"/>
         </label>
 
         <span th:if="${#fields.hasErrors('cardName')}"
@@ -32,7 +34,8 @@
         <label>
             <input type="text" th:field="*{cardQuantity}"
                    class="form-control mb-4 w-250"
-                   placeholder="How many copies do you have?" />
+                   placeholder="How many copies do you have?"
+                   style="width: 400px"/>
         </label>
 
         <br><br>
@@ -46,7 +49,8 @@
         <label>
             <input type="text" th:field="*{cardSet}"
                    class="form-control mb-4 w-250"
-                   placeholder="What set is it from?" />
+                   placeholder="What set is it from?"
+                   style="width: 400px"/>
         </label>
 
         <br><br>
@@ -59,6 +63,6 @@
 
         <button type="submit" class="btn btn-info col-2">Save</button>
     </form>
-
+</div>
 </body>
 </html>

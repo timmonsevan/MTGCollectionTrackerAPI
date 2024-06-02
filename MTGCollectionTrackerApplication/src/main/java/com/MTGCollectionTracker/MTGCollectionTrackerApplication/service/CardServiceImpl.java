@@ -67,7 +67,7 @@ public class CardServiceImpl implements CardService {
         List<String> collectionList = new ArrayList<>();
 
         if (query.isEmpty()) {
-            return "Card with name " + cardName + " not found.";
+            return "Card with name '" + cardName + "' not found in your collection.";
         }
 
         for (DatabaseCard card : query) {

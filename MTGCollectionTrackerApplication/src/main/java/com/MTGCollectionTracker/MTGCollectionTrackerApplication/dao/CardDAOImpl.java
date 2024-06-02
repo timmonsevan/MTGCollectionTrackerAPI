@@ -52,10 +52,6 @@ public class CardDAOImpl implements CardDAO{
         String formattedName = toTitleCase(name);
         theQuery.setParameter("theData", formattedName);
 
-        if (theQuery.getResultList().isEmpty()) {
-            throw new CardNotFoundException("No card found with name " + formattedName + " in your collection.");
-        }
-
         return theQuery.getResultList();
     }
 
