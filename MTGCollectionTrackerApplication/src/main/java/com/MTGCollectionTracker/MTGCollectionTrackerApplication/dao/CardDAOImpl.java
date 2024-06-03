@@ -1,6 +1,5 @@
 package com.MTGCollectionTracker.MTGCollectionTrackerApplication.dao;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.entity.DatabaseCard;
-import com.MTGCollectionTracker.MTGCollectionTrackerApplication.controller.CardNotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
