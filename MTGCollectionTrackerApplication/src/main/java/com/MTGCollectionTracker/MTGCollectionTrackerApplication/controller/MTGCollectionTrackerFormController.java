@@ -30,39 +30,57 @@ public class MTGCollectionTrackerFormController {
         this.formService = theFormService;
     }
 
+    /**
+     * path to search card form
+     */
     @RequestMapping(path="/searchCardForm")
     public String searchCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
-        return "MTGTracker-searchCardForm";
+        return "Forms/MTGTracker-searchCardForm";
     }
 
+    /**
+     * path to add card form
+     */
     @RequestMapping(path="/addCardForm")
     public String addCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
-        return "MTGTracker-addCardForm";
+        return "Forms/MTGTracker-addCardForm";
     }
 
+    /**
+     * path to update card form
+     */
     @RequestMapping(path="/updateCardForm")
     public String updateCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
-        return "MTGTracker-updateCardForm";
+        return "Forms/MTGTracker-updateCardForm";
     }
 
+    /**
+     * path to update card form, with parameters pre-filled out
+     */
     @RequestMapping(path="/updateCardFormFilled")
     public String updateCardFormFilled(@RequestParam("cardId") int theId, Model theModel) {
         return formService.fillUpdateCardForm(theId, theModel);
     }
 
+    /**
+     * path to remove card form
+     */
     @RequestMapping(path="/removeCardForm")
     public String removeCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
-        return "MTGTracker-removeCardForm";
+        return "Forms/MTGTracker-removeCardForm";
     }
 
+    /**
+     * processes the search card form
+     */
     @GetMapping(path="/processSearchCardForm")
     public String processSearchCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel)
@@ -74,42 +92,51 @@ public class MTGCollectionTrackerFormController {
         }
 
         if (theBindingResult.hasErrors()) {
-            return "MTGTracker-searchCardForm";
+            return "Forms/MTGTracker-searchCardForm";
         } else {
             return formService.processSearchCardForm(searchCard, theModel);
         }
     }
 
+    /**
+     * processes the add card form
+     */
     @PostMapping(path="/processAddCardForm")
     public String processAddCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel)
             throws ClassNotFoundException {
 
         if (theBindingResult.hasErrors()) {
-            return "MTGTracker-addCardForm";
+            return "Forms/MTGTracker-addCardForm";
         } else {
             return formService.processAddCardForm(searchCard, theModel);
         }
     }
 
+    /**
+     * processes the update card form
+     */
     @PostMapping(path="/processUpdateCardForm")
     public String processUpdateCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel)
             throws ClassNotFoundException {
 
         if (theBindingResult.hasErrors()) {
-            return "MTGTracker-updateCardForm";
+            return "Forms/MTGTracker-updateCardForm";
         } else {
             return formService.processUpdateCardForm(searchCard, theModel);
         }
     }
 
+    /**
+     * processes the remove card form
+     */
     @PostMapping(path="/processRemoveCardForm")
     public String processRemoveCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel) {
 
         if (theBindingResult.hasErrors()) {
-            return "MTGTracker-removeCardForm";
+            return "Forms/MTGTracker-removeCardForm";
         } else {
             return formService.processRemoveCardForm(searchCard, theModel);
         }

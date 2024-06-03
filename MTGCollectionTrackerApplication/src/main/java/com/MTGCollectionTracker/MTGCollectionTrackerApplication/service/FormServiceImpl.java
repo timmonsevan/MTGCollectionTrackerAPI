@@ -84,6 +84,6 @@ public class FormServiceImpl implements FormService {
         searchCard.setCardQuantity(Integer.toString(databaseCard.getQuantity()));
         theModel.addAttribute("searchcard", searchCard);
 
-        return "MTGTracker-updateCardForm";
+        return "Forms/MTGTracker-updateCardForm";
     }
 }
