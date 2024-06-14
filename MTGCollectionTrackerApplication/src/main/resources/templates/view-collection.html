@@ -24,6 +24,7 @@
                 <th>Card Name</th>
                 <th>Quantity</th>
                 <th>Mana Cost</th>
+                <th>Card Type</th>
                 <th>Set</th>
                 <th>Action</th>
             </thead>
@@ -33,6 +34,7 @@
                     <td th:text="${tempCard.name}"></td>
                     <td th:text="${tempCard.quantity}"></td>
                     <td th:text="${tempCard.manaCost}"></td>
+                    <td th:text="${tempCard.type}"></td>
                     <td th:text="${tempCard.set}"></td>
                     <td>
                         <a th:href="@{/form/updateCardFormFilled(cardId=${tempCard.id})}"
