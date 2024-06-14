@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @author timmonsevan
  */
 @ControllerAdvice
-public class CardRestExceptionHandler {
+public class CardExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<CardErrorResponse> handleEx (CardNotFoundException ex) {
