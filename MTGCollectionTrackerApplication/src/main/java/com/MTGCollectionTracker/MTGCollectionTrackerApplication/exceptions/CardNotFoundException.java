@@ -1,4 +1,4 @@
-package com.MTGCollectionTracker.MTGCollectionTrackerApplication.controller;
+package com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions;
 
 /**
  * created custom exception for Card not able to be found

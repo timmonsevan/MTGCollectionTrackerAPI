@@ -1,7 +1,7 @@
 package com.MTGCollectionTracker.MTGCollectionTrackerApplication.service;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.dao.CardDAO;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.entity.DatabaseCard;
-import com.MTGCollectionTracker.MTGCollectionTrackerApplication.controller.CardNotFoundException;
+import com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions.CardNotFoundException;
 import io.magicthegathering.javasdk.api.CardAPI;
 import io.magicthegathering.javasdk.resource.Card;
 import org.springframework.beans.factory.annotation.Autowired;

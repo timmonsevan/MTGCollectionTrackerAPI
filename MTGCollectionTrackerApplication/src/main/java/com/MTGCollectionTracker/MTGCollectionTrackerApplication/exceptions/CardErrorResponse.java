@@ -1,4 +1,4 @@
-package com.MTGCollectionTracker.MTGCollectionTrackerApplication.controller;
+package com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions;
 
 /**
  * pojo for exception handling responses
