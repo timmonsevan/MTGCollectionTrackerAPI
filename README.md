@@ -8,7 +8,22 @@ one for retrieving all instances of a card (multiple printings),
 the other for retrieving the first non-promo version of a card
 (where multiverse ID is >0)
 
-permission to use MTG API:
+I created this app from the ground up, all of the code written by myself
+in conjunction with a Udemy course I was taking on Spring Boot/Spring/
+Hibernate. I developed the CRUD API first, centered around the 
+MTGCollectionTrackerRestController. 
+Then I expanded to include HTML forms which again I wrote from the ground
+up, using Bootstrap for the design, and added pages built around each form 
+in the MTGCollectionTrackerFormController.
+I then merged the functionality of the previous two controllers in the 
+MTGCollectionTrackerAppController. In addition I added security configurations
+and priveleges, stored in the same MySQL database as the collection itself,
+with BCrypt hashed passwords. The SecurityConfig class utilizes JDBC to 
+extract the credentials.
+Finally I added a simple Login controller for mapping the login page, which
+the app reroutes you to when opened.
+
+permission to use MTG API: 
 The MIT License (MIT)
 
 Copyright (c) 2016 magicthegathering.io
