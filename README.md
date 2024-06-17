@@ -1,4 +1,4 @@
-# Track an MTG collection
+# Track a Magic the Gathering collection
 
 Uses MTG's API to retrieve card data.
 MTG API is included as I created two custom methods in the CardAPI class,
