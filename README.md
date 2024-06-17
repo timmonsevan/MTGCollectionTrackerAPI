@@ -1,12 +1,10 @@
 # Track an MTG collection
 
-Add/search/update/remove cards from collection
-
 Uses MTG's API to retrieve card data.
 MTG API is included as I created two custom methods in the CardAPI class,
 one for retrieving all instances of a card (multiple printings), 
-the other for retrieving the first non-promo version of a card
-(where multiverse ID is >0)
+the other for retrieving the first **non-promo** version of a card
+**(where multiverse ID is >0)**
 
 I created this app from the ground up, all of the code written by myself
 in conjunction with a Udemy course I was taking on Spring Boot/Spring/
