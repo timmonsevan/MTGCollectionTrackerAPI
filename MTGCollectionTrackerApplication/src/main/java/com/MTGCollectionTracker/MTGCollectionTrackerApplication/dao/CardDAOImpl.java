@@ -39,7 +39,11 @@ public class CardDAOImpl implements CardDAO{
      */
     @Override
     public DatabaseCard findById(Integer id) {
-        return entityManager.find(DatabaseCard.class, id);
+        if (id != null) {
+            return entityManager.find(DatabaseCard.class, id);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -50,7 +54,11 @@ public class CardDAOImpl implements CardDAO{
 
         TypedQuery<DatabaseCard> theQuery = entityManager.createQuery("FROM card", DatabaseCard.class);
 
-        return theQuery.getResultList();
+        if (theQuery != null) {
+            return theQuery.getResultList();
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -59,11 +67,19 @@ public class CardDAOImpl implements CardDAO{
     @Override
     public List<DatabaseCard> findByName(String name) {
 
-        TypedQuery<DatabaseCard> theQuery = entityManager.createQuery("FROM card WHERE name=:theData", DatabaseCard.class);
-        String formattedName = toTitleCase(name);
-        theQuery.setParameter("theData", formattedName);
+        if (name == null) {
+            return null;
+        } else {
+            TypedQuery<DatabaseCard> theQuery = entityManager.createQuery("FROM card WHERE name=:theData", DatabaseCard.class);
+            String formattedName = toTitleCase(name);
+            theQuery.setParameter("theData", formattedName);
 
-        return theQuery.getResultList();
+            if (!theQuery.getResultList().isEmpty()) {
+                return theQuery.getResultList();
+            } else {
+                return null;
+            }
+        }
     }
 
     /**
@@ -71,7 +87,12 @@ public class CardDAOImpl implements CardDAO{
      */
     @Override
     public void update(DatabaseCard theDatabaseCard) {
-        entityManager.merge(theDatabaseCard);
+
+        try {
+            entityManager.merge(theDatabaseCard);
+        } catch (Exception ex) {
+            System.out.println("Update error");
+        }
     }
 
     /**
@@ -80,11 +101,15 @@ public class CardDAOImpl implements CardDAO{
     @Override
     public void delete(String name) {
 
-        List<DatabaseCard> cards = findByName(name);
+        try {
+            List<DatabaseCard> cards = findByName(name);
 
-        for (DatabaseCard card : cards) {
-            DatabaseCard theDatabaseCard = entityManager.find(DatabaseCard.class, card.getId());
-            entityManager.remove(theDatabaseCard);
+            for (DatabaseCard card : cards) {
+                DatabaseCard theDatabaseCard = entityManager.find(DatabaseCard.class, card.getId());
+                entityManager.remove(theDatabaseCard);
+            }
+        } catch (Exception ex) {
+            System.out.println("Deletion error");
         }
     }
 
@@ -94,8 +119,12 @@ public class CardDAOImpl implements CardDAO{
     @Override
     public void delete(int id) {
 
-        DatabaseCard card = findById(id);
-        entityManager.remove(card);
+        try {
+            DatabaseCard card = findById(id);
+            entityManager.remove(card);
+        } catch (Exception ex) {
+            System.out.println("Deletion error");
+        }
     }
 
     /**
