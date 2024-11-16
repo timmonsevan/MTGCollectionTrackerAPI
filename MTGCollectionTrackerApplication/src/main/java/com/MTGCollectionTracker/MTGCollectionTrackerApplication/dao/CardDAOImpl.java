@@ -17,8 +17,8 @@ public class CardDAOImpl implements CardDAO{
     private final EntityManager entityManager;
 
     @Autowired
-    public CardDAOImpl (EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public CardDAOImpl (EntityManager theEntityManager) {
+        this.entityManager = theEntityManager;
     }
 
     /**
