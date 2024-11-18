@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes= MtgCollectionTrackerApplication.class)
@@ -52,5 +54,19 @@ public class CardServiceImplTest {
     public void cardServiceSearchTest() {
 
         assertThrows(IllegalArgumentException.class, () -> cardService.searchCollectionByName(""));
+    }
+
+    @Test
+    public void viewCollectionTest() {
+
+        assertEquals("Collection is empty.", cardService.viewCollection());
+    }
+
+    @Test
+    public void listCollectionTest() {
+
+        List<DatabaseCard> list = new ArrayList<>();
+
+        assertEquals(list, cardService.listCollection());
     }
 }
