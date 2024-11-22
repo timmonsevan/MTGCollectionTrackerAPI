@@ -3,17 +3,21 @@ import com.MTGCollectionTracker.MTGCollectionTrackerApplication.dao.CardDAOImpl;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.entity.DatabaseCard;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions.CardNotFoundException;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.service.CardServiceImpl;
+import io.magicthegathering.javasdk.api.CardAPI;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes= MtgCollectionTrackerApplication.class)
+@SpringBootTest(classes = MtgCollectionTrackerApplication.class)
+@ActiveProfiles("test")
+@TestPropertySource(locations = "/src/test/resources/application-test.properties")
 public class CardServiceImplTest {
 
     @Autowired
@@ -30,7 +34,7 @@ public class CardServiceImplTest {
 
     @BeforeAll
     static void testSetup() throws ClassNotFoundException {
-        //  databaseCard = new DatabaseCard(Objects.requireNonNull(CardAPI.getCardByName("choke")), 2);
+        //databaseCard = new DatabaseCard(Objects.requireNonNull(CardAPI.getCardByName("choke")), 2);
     }
 
     @Test
@@ -40,8 +44,8 @@ public class CardServiceImplTest {
         assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("", String.valueOf(2)));
         assertEquals("Invalid entry, please check that numCards is whole number value > 0", cardService.addNewCard("choke", String.valueOf("a")));
         assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("choke", String.valueOf(-1)));
-        //cardService.addNewCard("consider", String.valueOf(1));
-        //assertEquals("consider already exists in your collection", cardService.addNewCard("consider", String.valueOf(1)));
+        cardService.addNewCard("consider", String.valueOf(1));
+        assertEquals("consider already exists in your collection", cardService.addNewCard("consider", String.valueOf(1)));
         assertThrows(CardNotFoundException.class, () -> cardService.addNewCard("tonker", String.valueOf(1)));
         assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("", String.valueOf(1), "M10"));
         assertEquals("Invalid entry, please check that numCards is whole number value > 0", cardService.addNewCard("ponder", String.valueOf("a"), "M10"));
