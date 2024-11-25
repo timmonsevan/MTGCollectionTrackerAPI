@@ -53,6 +53,10 @@ public class CardServiceImplTest {
                 cardService.addNewCard("giant growth", String.valueOf(1), "M11"));
         assertEquals("firebolt from set GTC cannot be found",
                 cardService.addNewCard("firebolt", String.valueOf(1), "GTC"));
+        assertNull(cardService.addNewCard(null, null));
+        assertNull(cardService.addNewCard("stoneforge mystic", null));
+        assertNull(cardService.addNewCard(null, String.valueOf(4)));
+        assertNull(cardService.addNewCard("stoneforge mystic", String.valueOf(4), null));
     }
 
     /**
@@ -69,10 +73,17 @@ public class CardServiceImplTest {
                 cardService.searchCollectionByName("Time Warp"));
         assertEquals("[You have 2 copies of Snapcaster Mage in your collection\n]",
                 cardService.searchCollectionByName("Snapcaster Mage"));
+        assertNull(cardService.searchCollectionByName(null));
 
         long id = 4;
+        Long nullId = null;
 
         assertEquals("Time Warp", cardService.findById(id).getName());
+
+        try {
+            assertNull(cardService.findById(nullId));
+        } catch (NullPointerException ignore) {
+        }
     }
 
     /**
@@ -99,6 +110,10 @@ public class CardServiceImplTest {
                 cardService.updateCard("giant growth", String.valueOf(2), "M11"));
         assertEquals("path to exile quantity updated", cardService.updateCard("path to exile", String.valueOf(3)));
         assertEquals("path to exile updated", cardService.updateCard("path to exile", String.valueOf(2), "CMA"));
+        assertNull(cardService.updateCard(null, null));
+        assertNull(cardService.updateCard("path to exile", null));
+        assertNull(cardService.updateCard(null, String.valueOf(3)));
+        assertNull(cardService.updateCard("path to exile", String.valueOf(2), null));
 
         cardService.removeCardFromCollection("path to exile");
     }
@@ -118,6 +133,7 @@ public class CardServiceImplTest {
                 cardService.removeCardFromCollection("giant growth"));
         assertEquals("path to exile removed from collection.", cardService.removeCardFromCollection("path to exile"));
         assertEquals("redirect:/app/collection", cardService.removeCardFromCollection(databaseCard.getId()));
+        assertNull(cardService.removeCardFromCollection(null));
 
         cardService.removeCardFromCollection("path to exile");
     }

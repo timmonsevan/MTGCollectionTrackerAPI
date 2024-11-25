@@ -32,7 +32,6 @@ public class CardServiceImpl implements CardService {
     public DatabaseCard findById(long id) {
         return cardDAO.findById(id);
     }
-
     /**
      * @return a String List of all cards in collection
      */
@@ -72,31 +71,35 @@ public class CardServiceImpl implements CardService {
     @Override
     public String searchCollectionByName(String cardName) throws ClassNotFoundException {
 
-        if (cardName.isBlank() || cardName.isEmpty()) {
-            throw new IllegalArgumentException("Invalid entry, please check that cardName is entered.");
-        }
+        if (cardName != null) {
 
-        List<DatabaseCard> query;
-
-        try {
-            query = new ArrayList<>(cardDAO.findByName(cardName));
-        } catch (NullPointerException ex) {
-            return "Card '" + cardName + "' not found in your collection.";
-        }
-
-        query = new ArrayList<>(cardDAO.findByName(cardName));
-        List<String> collectionList = new ArrayList<>();
-
-        for (DatabaseCard card : query) {
-            if (card.getQuantity() == 1) {
-                collectionList.add("You have " + card.getQuantity() + " copy of " + card.getName() + " in your collection\n");
-            } else {
-                collectionList.add("You have " + card.getQuantity() + " copies of " + card.getName() + " in your collection\n");
+            if (cardName.isBlank() || cardName.isEmpty()) {
+                throw new IllegalArgumentException("Invalid entry, please check that cardName is entered.");
             }
-        }
-        return collectionList.toString();
-    }
 
+            List<DatabaseCard> query;
+
+            try {
+                query = new ArrayList<>(cardDAO.findByName(cardName));
+            } catch (NullPointerException ex) {
+                return "Card '" + cardName + "' not found in your collection.";
+            }
+
+            query = new ArrayList<>(cardDAO.findByName(cardName));
+            List<String> collectionList = new ArrayList<>();
+
+            for (DatabaseCard card : query) {
+                if (card.getQuantity() == 1) {
+                    collectionList.add("You have " + card.getQuantity() + " copy of " + card.getName() + " in your collection\n");
+                } else {
+                    collectionList.add("You have " + card.getQuantity() + " copies of " + card.getName() + " in your collection\n");
+                }
+            }
+            return collectionList.toString();
+        } else {
+            return null;
+        }
+    }
     /**
      * adds a new card to the collection with a specified quantity
      * @return a message screen
@@ -107,42 +110,46 @@ public class CardServiceImpl implements CardService {
 
         int quantity;
 
-        if (cardName.isBlank() || cardName.isEmpty()) {
-            throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
-        }
+        if (cardName != null && numCards != null) {
 
-        try {
-            quantity = Integer.parseInt(numCards);
-        } catch (NumberFormatException ex) {
-            return "Invalid entry, please check that numCards is whole number value > 0";
-        }
+            if (cardName.isBlank() || cardName.isEmpty()) {
+                throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
+            }
 
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
-        }
+            try {
+                quantity = Integer.parseInt(numCards);
+            } catch (NumberFormatException ex) {
+                return "Invalid entry, please check that numCards is whole number value > 0";
+            }
 
-        try {
-            List<DatabaseCard> query = new ArrayList<>(cardDAO.findByName(cardName));
+            if (quantity <= 0) {
+                throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
+            }
 
-            if (!query.isEmpty()) {
-                for (DatabaseCard card : query) {
-                    if (card.getName().equalsIgnoreCase(cardName)) {
-                        return cardName + " already exists in your collection";
+            try {
+                List<DatabaseCard> query = new ArrayList<>(cardDAO.findByName(cardName));
+
+                if (!query.isEmpty()) {
+                    for (DatabaseCard card : query) {
+                        if (card.getName().equalsIgnoreCase(cardName)) {
+                            return cardName + " already exists in your collection";
+                        }
                     }
                 }
+            } catch (Exception ignored) {
             }
-        } catch (Exception ignored) {
-        }
 
-        try {
-            DatabaseCard tempDatabaseCard = new DatabaseCard(Objects.requireNonNull(CardAPI.getCardByName(cardName)), quantity);
-            cardDAO.save(tempDatabaseCard);
-        } catch (Exception ex) {
-            throw new CardNotFoundException("Card with name " + cardName + " cannot be found.");
+            try {
+                DatabaseCard tempDatabaseCard = new DatabaseCard(Objects.requireNonNull(CardAPI.getCardByName(cardName)), quantity);
+                cardDAO.save(tempDatabaseCard);
+            } catch (Exception ex) {
+                throw new CardNotFoundException("Card with name " + cardName + " cannot be found.");
+            }
+            return cardName + " was added to your collection.";
+        } else {
+            return null;
         }
-        return cardName + " was added to your collection.";
     }
-
     /**
      * adds a new card to the collection with a specified quantity and set indicator
      * @return a message screen
@@ -153,45 +160,50 @@ public class CardServiceImpl implements CardService {
 
         int quantity;
 
-        if (cardName.isBlank() || cardName.isEmpty()) {
-            throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
-        }
+        if (cardName != null && numCards != null && set != null) {
 
-        try {
-            quantity = Integer.parseInt(numCards);
-        } catch (NumberFormatException ex) {
-            return "Invalid entry, please check that numCards is whole number value > 0";
-        }
 
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
-        }
+            if (cardName.isBlank() || cardName.isEmpty()) {
+                throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
+            }
 
-        try {
-            List<DatabaseCard> query = new ArrayList<>(cardDAO.findByName(cardName));
+            try {
+                quantity = Integer.parseInt(numCards);
+            } catch (NumberFormatException ex) {
+                return "Invalid entry, please check that numCards is whole number value > 0";
+            }
 
-            if (!query.isEmpty()) {
-                for (DatabaseCard card : query) {
-                    if (card.getName().equalsIgnoreCase(cardName)) {
-                        return cardName + " already exists in your collection";
+            if (quantity <= 0) {
+                throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
+            }
+
+            try {
+                List<DatabaseCard> query = new ArrayList<>(cardDAO.findByName(cardName));
+
+                if (!query.isEmpty()) {
+                    for (DatabaseCard card : query) {
+                        if (card.getName().equalsIgnoreCase(cardName)) {
+                            return cardName + " already exists in your collection";
+                        }
                     }
                 }
+            } catch (Exception ignored) {
             }
-        } catch (Exception ignored) {
-        }
 
+            List<Card> cards = CardAPI.getCardsByName(cardName);
 
-        List<Card> cards = CardAPI.getCardsByName(cardName);
-
-        for (Card card : cards) {
-            if (card.getSet().equalsIgnoreCase(set)) {
-                DatabaseCard tempDatabaseCard = new DatabaseCard(card, quantity);
-                cardDAO.save(tempDatabaseCard);
-                return cardName + " was added to your collection.";
+            for (Card card : cards) {
+                if (card.getSet().equalsIgnoreCase(set)) {
+                    DatabaseCard tempDatabaseCard = new DatabaseCard(card, quantity);
+                    cardDAO.save(tempDatabaseCard);
+                    return cardName + " was added to your collection.";
+                }
             }
-        }
 
-        return cardName + " from set " + set + " cannot be found";
+            return cardName + " from set " + set + " cannot be found";
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -204,44 +216,49 @@ public class CardServiceImpl implements CardService {
 
         int quantity;
 
-        if (cardName.isBlank() || cardName.isEmpty()) {
-            throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
-        }
+        if (cardName != null && numCards != null) {
 
-        try {
-            quantity = Integer.parseInt(numCards);
-        } catch (NumberFormatException ex) {
-            return "Invalid entry, please check that numCards is whole number value > 0";
-        }
-
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
-        }
-
-        List<DatabaseCard> query;
-
-        try {
-            query = new ArrayList<>(cardDAO.findByName(cardName));
-        } catch (NullPointerException ex) {
-            return "Card '" + cardName + "' not found in your collection.";
-        }
-
-        query = new ArrayList<>(cardDAO.findByName(cardName));
-
-        try {
-            for (DatabaseCard card : query) {
-                if (card.getName().equalsIgnoreCase(cardName)) {
-                    if (card.getMultiverseId() == Objects.requireNonNull(CardAPI.getCardByName(cardName)).getMultiverseid()) {
-                        card.setQuantity(quantity);
-                        cardDAO.update(card);
-                    }
-                }
+            if (cardName.isBlank() || cardName.isEmpty()) {
+                throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
             }
 
-            return cardName + " quantity updated";
+            try {
+                quantity = Integer.parseInt(numCards);
+            } catch (NumberFormatException ex) {
+                return "Invalid entry, please check that numCards is whole number value > 0";
+            }
 
-        } catch (Exception ex) {
-            return "Update error.";
+            if (quantity <= 0) {
+                throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
+            }
+
+            List<DatabaseCard> query;
+
+            try {
+                query = new ArrayList<>(cardDAO.findByName(cardName));
+            } catch (NullPointerException ex) {
+                return "Card '" + cardName + "' not found in your collection.";
+            }
+
+            query = new ArrayList<>(cardDAO.findByName(cardName));
+
+            try {
+                for (DatabaseCard card : query) {
+                    if (card.getName().equalsIgnoreCase(cardName)) {
+                        if (card.getMultiverseId() == Objects.requireNonNull(CardAPI.getCardByName(cardName)).getMultiverseid()) {
+                            card.setQuantity(quantity);
+                            cardDAO.update(card);
+                        }
+                    }
+                }
+
+                return cardName + " quantity updated";
+
+            } catch (Exception ex) {
+                return "Update error.";
+            }
+        } else {
+            return null;
         }
     }
     /**
@@ -254,45 +271,50 @@ public class CardServiceImpl implements CardService {
 
         int quantity;
 
-        if (cardName.isBlank() || cardName.isEmpty()) {
-            throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
-        }
+        if (cardName != null && numCards != null && set != null) {
 
-        try {
-            quantity = Integer.parseInt(numCards);
-        } catch (NumberFormatException ex) {
-            return "Invalid entry, please check that numCards is whole number value > 0";
-        }
-
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
-        }
-
-        List<DatabaseCard> query;
-
-        try {
-            query = new ArrayList<>(cardDAO.findByName(cardName));
-        } catch (NullPointerException ex) {
-            return "Card '" + cardName + "' not found in your collection.";
-        }
-
-        query = new ArrayList<>(cardDAO.findByName(cardName));
-
-        try {
-            for (DatabaseCard card : query) {
-                if (card.getName().equalsIgnoreCase(cardName)) {
-                    if (card.getMultiverseId() == Objects.requireNonNull(CardAPI.getCardByName(cardName)).getMultiverseid()) {
-                        card.setQuantity(quantity);
-                        card.setSet(set);
-                        cardDAO.update(card);
-                    }
-                }
+            if (cardName.isBlank() || cardName.isEmpty()) {
+                throw new IllegalArgumentException("Invalid entry, please check that cardName is entered");
             }
 
-            return cardName + " updated";
+            try {
+                quantity = Integer.parseInt(numCards);
+            } catch (NumberFormatException ex) {
+                return "Invalid entry, please check that numCards is whole number value > 0";
+            }
 
-        } catch (Exception ex) {
-            return "Update error.";
+            if (quantity <= 0) {
+                throw new IllegalArgumentException("Invalid entry, please check that numCards is whole number value > 0");
+            }
+
+            List<DatabaseCard> query;
+
+            try {
+                query = new ArrayList<>(cardDAO.findByName(cardName));
+            } catch (NullPointerException ex) {
+                return "Card '" + cardName + "' not found in your collection.";
+            }
+
+            query = new ArrayList<>(cardDAO.findByName(cardName));
+
+            try {
+                for (DatabaseCard card : query) {
+                    if (card.getName().equalsIgnoreCase(cardName)) {
+                        if (card.getMultiverseId() == Objects.requireNonNull(CardAPI.getCardByName(cardName)).getMultiverseid()) {
+                            card.setQuantity(quantity);
+                            card.setSet(set);
+                            cardDAO.update(card);
+                        }
+                    }
+                }
+
+                return cardName + " updated";
+
+            } catch (Exception ex) {
+                return "Update error.";
+            }
+        } else {
+            return null;
         }
     }
 
@@ -304,36 +326,40 @@ public class CardServiceImpl implements CardService {
     @Transactional
     public String removeCardFromCollection(String cardName) {
 
-        if (cardName.isBlank() || cardName.isEmpty()) {
-            throw new IllegalArgumentException("Invalid entry, please check that cardName is entered.");
-        }
+        if (cardName != null) {
 
-        List<DatabaseCard> query;
-
-        try {
-            query = new ArrayList<>(cardDAO.findByName(cardName));
-        } catch (NullPointerException ex) {
-            return "Card '" + cardName + "' not found in your collection.";
-        }
-
-        query = new ArrayList<>(cardDAO.findByName(cardName));
-
-        try {
-            for (DatabaseCard card : query) {
-                if (card.getName().equalsIgnoreCase(cardName)) {
-                    if (card.getMultiverseId() == Objects.requireNonNull(CardAPI.getCardByName(cardName)).getMultiverseid()) {
-                        cardDAO.delete(card.getName());
-                    }
-                }
+            if (cardName.isBlank() || cardName.isEmpty()) {
+                throw new IllegalArgumentException("Invalid entry, please check that cardName is entered.");
             }
 
-            return cardName + " removed from collection.";
+            List<DatabaseCard> query;
 
-        } catch (Exception ex) {
-            return "Deletion error.";
+            try {
+                query = new ArrayList<>(cardDAO.findByName(cardName));
+            } catch (NullPointerException ex) {
+                return "Card '" + cardName + "' not found in your collection.";
+            }
+
+            query = new ArrayList<>(cardDAO.findByName(cardName));
+
+            try {
+                for (DatabaseCard card : query) {
+                    if (card.getName().equalsIgnoreCase(cardName)) {
+                        if (card.getMultiverseId() == Objects.requireNonNull(CardAPI.getCardByName(cardName)).getMultiverseid()) {
+                            cardDAO.delete(card.getName());
+                        }
+                    }
+                }
+
+                return cardName + " removed from collection.";
+
+            } catch (Exception ex) {
+                return "Deletion error.";
+            }
+        } else {
+            return null;
         }
     }
-
     /**
      * removes a card from the collection based on card Id number in stored database
      * @return refreshes the main page
