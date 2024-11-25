@@ -131,8 +131,8 @@ public class CardDAOImpl implements CardDAO{
      * convert card name to title case formatted name
      * developed by a user on StackOverflow
      */
-    public static String toTitleCase(String givenString) {
-        String[] arr = givenString.split(" ");
+    public static String toTitleCase(String input) {
+        String[] arr = input.split("\\s");
         StringBuilder sb = new StringBuilder();
 
         for (String s : arr) {
