@@ -76,12 +76,16 @@ public class CardServiceImpl implements CardService {
             throw new IllegalArgumentException("Invalid entry, please check that cardName is entered.");
         }
 
-        List<DatabaseCard> query = new ArrayList<>(cardDAO.findByName(cardName));
-        List<String> collectionList = new ArrayList<>();
+        List<DatabaseCard> query;
 
-        if (query.isEmpty()) {
+        try {
+            query = new ArrayList<>(cardDAO.findByName(cardName));
+        } catch (NullPointerException ex) {
             return "Card '" + cardName + "' not found in your collection.";
         }
+
+        query = new ArrayList<>(cardDAO.findByName(cardName));
+        List<String> collectionList = new ArrayList<>();
 
         for (DatabaseCard card : query) {
             if (card.getQuantity() == 1) {

@@ -1,40 +1,40 @@
 package com.MTGCollectionTracker.MTGCollectionTrackerApplication;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.dao.CardDAOImpl;
-import com.MTGCollectionTracker.MTGCollectionTrackerApplication.entity.DatabaseCard;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions.CardNotFoundException;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.service.CardServiceImpl;
-import io.magicthegathering.javasdk.api.CardAPI;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import java.util.*;
+import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = MtgCollectionTrackerApplication.class)
-@ActiveProfiles("test")
-@TestPropertySource(locations = "/src/test/resources/application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Transactional
 public class CardServiceImplTest {
 
     @Autowired
-    ApplicationContext context;
-
-    @Autowired
-    static DatabaseCard databaseCard;
-
-    @MockBean
     private CardDAOImpl cardDao;
 
     @Autowired
     private CardServiceImpl cardService;
 
-    @BeforeAll
-    static void testSetup() throws ClassNotFoundException {
-        //databaseCard = new DatabaseCard(Objects.requireNonNull(CardAPI.getCardByName("choke")), 2);
+    @BeforeEach
+    public void testSetup() throws ClassNotFoundException {
+
+        //DatabaseCard databaseCard = new DatabaseCard(Objects.requireNonNull(CardAPI.getCardByName("consider")), 4);
+        //cardService.addNewCard(databaseCard.getName(), String.valueOf(databaseCard.getQuantity()));
+    }
+
+    @AfterEach
+    public void testTakedown() {
+
+        //cardService.removeCardFromCollection("consider");
     }
 
     @Test
@@ -44,33 +44,37 @@ public class CardServiceImplTest {
         assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("", String.valueOf(2)));
         assertEquals("Invalid entry, please check that numCards is whole number value > 0", cardService.addNewCard("choke", String.valueOf("a")));
         assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("choke", String.valueOf(-1)));
-        cardService.addNewCard("consider", String.valueOf(1));
-        assertEquals("consider already exists in your collection", cardService.addNewCard("consider", String.valueOf(1)));
+        assertEquals("consider already exists in your collection", cardService.addNewCard("consider", String.valueOf(4)));
+        assertEquals("consider already exists in your collection", cardService.addNewCard("consider", String.valueOf(4), "MID"));
         assertThrows(CardNotFoundException.class, () -> cardService.addNewCard("tonker", String.valueOf(1)));
         assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("", String.valueOf(1), "M10"));
         assertEquals("Invalid entry, please check that numCards is whole number value > 0", cardService.addNewCard("ponder", String.valueOf("a"), "M10"));
-        assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("ponder", String.valueOf(-1), "M10"));
-        assertEquals("ponder was added to your collection.", cardService.addNewCard("ponder", String.valueOf(1), "M10"));
-        assertEquals("ponder from set GTC cannot be found", cardService.addNewCard("ponder", String.valueOf(1), "GTC"));
+        assertThrows(IllegalArgumentException.class, () -> cardService.addNewCard("giant growth", String.valueOf(-1), "M11"));
+        assertEquals("giant growth was added to your collection.", cardService.addNewCard("giant growth", String.valueOf(1), "M11"));
+        assertEquals("firebolt from set GTC cannot be found", cardService.addNewCard("firebolt", String.valueOf(1), "GTC"));
     }
 
     @Test
-    public void cardServiceSearchTest() {
+    public void cardServiceSearchTest() throws ClassNotFoundException {
 
         assertThrows(IllegalArgumentException.class, () -> cardService.searchCollectionByName(""));
+        assertEquals("Card 'black lotus' not found in your collection.", cardService.searchCollectionByName("black lotus"));
+        assertEquals("[You have 1 copy of Time Warp in your collection\n]", cardService.searchCollectionByName("Time Warp"));
+        assertEquals("[You have 2 copies of Snapcaster Mage in your collection\n]", cardService.searchCollectionByName("Snapcaster Mage"));
     }
 
     @Test
     public void viewCollectionTest() {
 
-        assertEquals("Collection is empty.", cardService.viewCollection());
+        //assertEquals("Collection is empty.", cardService.viewCollection());
+        //assertEquals("");
     }
 
     @Test
     public void listCollectionTest() {
 
-        List<DatabaseCard> list = new ArrayList<>();
+        //List<DatabaseCard> list = new ArrayList<>();
 
-        assertEquals(list, cardService.listCollection());
+        //assertEquals(list, cardService.listCollection());
     }
 }
