@@ -5,43 +5,44 @@ import jakarta.persistence.*;
 /**
  * pojo representing a card saved to local database
  * (different from Card which is an object imported from the MTG SDK)
+ *
  * @author timmonsevan
  */
 
-@Entity(name="card")
-@Table(name="card")
+@Entity(name = "card")
+@Table(name = "card")
 public class DatabaseCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="`id`")
+    @Column(name = "`id`")
     private long id;
 
-    @Column(name="`mana_cost`")
+    @Column(name = "`mana_cost`")
     private String manaCost;
 
-    @Column(name="`multiverse_id`")
+    @Column(name = "`multiverse_id`")
     private long multiverseId;
 
-    @Column(name="`name`")
+    @Column(name = "`name`")
     private String name;
 
-    @Column(name="`quantity`")
+    @Column(name = "`quantity`")
     private int quantity;
 
-    @Column(name="`rarity`")
+    @Column(name = "`rarity`")
     private String rarity;
 
-    @Column(name="`set`")
+    @Column(name = "`set`")
     private String set;
 
-    @Column(name="`set_name`")
+    @Column(name = "`set_name`")
     private String setName;
 
-    @Column(name="`text`")
+    @Column(name = "`text`")
     private String text;
 
-    @Column(name="`type`")
+    @Column(name = "`type`")
     private String type;
 
 
@@ -76,6 +77,7 @@ public class DatabaseCard {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
     public String getName() {
         return name;
     }

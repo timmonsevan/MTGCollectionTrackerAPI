@@ -1,5 +1,4 @@
 package com.MTGCollectionTracker.MTGCollectionTrackerApplication.service;
-import com.MTGCollectionTracker.MTGCollectionTrackerApplication.dao.CardDAO;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.entity.DatabaseCard;
 import com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions.CardNotFoundException;
 import io.magicthegathering.javasdk.api.CardAPI;
@@ -7,12 +6,14 @@ import io.magicthegathering.javasdk.resource.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.MTGCollectionTracker.MTGCollectionTrackerApplication.dao.CardDAO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * service methods for controllers
+ *
  * @author timmonsevan
  */
 @Service
@@ -32,6 +33,7 @@ public class CardServiceImpl implements CardService {
     public DatabaseCard findById(long id) {
         return cardDAO.findById(id);
     }
+
     /**
      * @return a String List of all cards in collection
      */
@@ -66,6 +68,7 @@ public class CardServiceImpl implements CardService {
 
     /**
      * searches collection for card by name
+     *
      * @return a message screen
      */
     @Override
@@ -100,8 +103,10 @@ public class CardServiceImpl implements CardService {
             return null;
         }
     }
+
     /**
      * adds a new card to the collection with a specified quantity
+     *
      * @return a message screen
      */
     @Override
@@ -150,8 +155,10 @@ public class CardServiceImpl implements CardService {
             return null;
         }
     }
+
     /**
      * adds a new card to the collection with a specified quantity and set indicator
+     *
      * @return a message screen
      */
     @Override
@@ -208,6 +215,7 @@ public class CardServiceImpl implements CardService {
 
     /**
      * updates a card quantity
+     *
      * @return a message screen
      */
     @Override
@@ -261,8 +269,10 @@ public class CardServiceImpl implements CardService {
             return null;
         }
     }
+
     /**
      * update a card's quantity and/or set
+     *
      * @return a message screen
      */
     @Override
@@ -320,6 +330,7 @@ public class CardServiceImpl implements CardService {
 
     /**
      * removes card from collection based off card name
+     *
      * @return a message screen
      */
     @Override
@@ -360,8 +371,10 @@ public class CardServiceImpl implements CardService {
             return null;
         }
     }
+
     /**
      * removes a card from the collection based on card Id number in stored database
+     *
      * @return refreshes the main page
      */
     @Override

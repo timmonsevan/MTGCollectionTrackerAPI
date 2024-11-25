@@ -2,6 +2,7 @@ package com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions;
 
 /**
  * created custom exception for Card not able to be found
+ *
  * @author timmonsevan
  */
 public class CardNotFoundException extends RuntimeException {

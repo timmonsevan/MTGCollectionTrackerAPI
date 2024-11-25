@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @author timmonsevan
  */
 @Controller
-@RequestMapping(path="/form")
+@RequestMapping(path = "/form")
 public class MTGCollectionTrackerFormController {
 
     private final FormService formService;
@@ -33,7 +33,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * path to search card form
      */
-    @RequestMapping(path="/searchCardForm")
+    @RequestMapping(path = "/searchCardForm")
     public String searchCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
@@ -43,7 +43,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * path to add card form
      */
-    @RequestMapping(path="/addCardForm")
+    @RequestMapping(path = "/addCardForm")
     public String addCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
@@ -53,7 +53,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * path to update card form
      */
-    @RequestMapping(path="/updateCardForm")
+    @RequestMapping(path = "/updateCardForm")
     public String updateCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
@@ -63,7 +63,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * path to update card form, with parameters pre-filled out
      */
-    @RequestMapping(path="/updateCardFormFilled")
+    @RequestMapping(path = "/updateCardFormFilled")
     public String updateCardFormFilled(@RequestParam("cardId") int theId, Model theModel) {
         return formService.fillUpdateCardForm(theId, theModel);
     }
@@ -71,7 +71,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * path to remove card form
      */
-    @RequestMapping(path="/removeCardForm")
+    @RequestMapping(path = "/removeCardForm")
     public String removeCardForm(Model theModel) {
 
         theModel.addAttribute("searchcard", new SearchCard());
@@ -81,7 +81,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * processes the search card form
      */
-    @GetMapping(path="/processSearchCardForm")
+    @GetMapping(path = "/processSearchCardForm")
     public String processSearchCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel)
             throws ClassNotFoundException {
@@ -101,7 +101,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * processes the add card form
      */
-    @PostMapping(path="/processAddCardForm")
+    @PostMapping(path = "/processAddCardForm")
     public String processAddCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel)
             throws ClassNotFoundException {
@@ -116,7 +116,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * processes the update card form
      */
-    @PostMapping(path="/processUpdateCardForm")
+    @PostMapping(path = "/processUpdateCardForm")
     public String processUpdateCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel)
             throws ClassNotFoundException {
@@ -131,7 +131,7 @@ public class MTGCollectionTrackerFormController {
     /**
      * processes the remove card form
      */
-    @PostMapping(path="/processRemoveCardForm")
+    @PostMapping(path = "/processRemoveCardForm")
     public String processRemoveCardForm(
             @Valid @ModelAttribute("searchcard") SearchCard searchCard, BindingResult theBindingResult, Model theModel) {
 

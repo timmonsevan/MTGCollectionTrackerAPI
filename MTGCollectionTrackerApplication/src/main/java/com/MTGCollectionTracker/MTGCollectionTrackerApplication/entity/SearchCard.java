@@ -7,20 +7,21 @@ import jakarta.validation.constraints.Size;
 /**
  * pojo for binding data from form submissions
  * (different from Card which is an object imported from the MTG SDK)
+ *
  * @author timmonsevan
  */
 public class SearchCard {
 
-    @NotNull(message="is required")
-    @Size(min=1, message="is required")
+    @NotNull(message = "is required")
+    @Size(min = 1, message = "is required")
     private String cardName;
 
-    @NotNull(message="is required")
-    @Min(value=1, message="must be greater than zero")
-    @Pattern(regexp="^[0-9]", message="must be whole integer")
+    @NotNull(message = "is required")
+    @Min(value = 1, message = "must be greater than zero")
+    @Pattern(regexp = "^[0-9]", message = "must be whole integer")
     private String cardQuantity;
 
-    @Pattern(regexp="^[a-zA-Z0-9]{3}", message="only 3 characters/digits")
+    @Pattern(regexp = "^[a-zA-Z0-9]{3}", message = "only 3 characters/digits")
     private String cardSet;
 
     public SearchCard() {

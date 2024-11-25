@@ -2,6 +2,7 @@ package com.MTGCollectionTracker.MTGCollectionTrackerApplication.exceptions;
 
 /**
  * pojo for exception handling responses
+ *
  * @author timmonsevan
  */
 public class CardErrorResponse {

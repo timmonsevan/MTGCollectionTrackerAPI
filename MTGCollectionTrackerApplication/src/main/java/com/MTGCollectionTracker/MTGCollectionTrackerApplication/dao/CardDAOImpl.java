@@ -12,12 +12,12 @@ import java.util.List;
  */
 
 @Repository
-public class CardDAOImpl implements CardDAO{
+public class CardDAOImpl implements CardDAO {
 
     private final EntityManager entityManager;
 
     @Autowired
-    public CardDAOImpl (EntityManager theEntityManager) {
+    public CardDAOImpl(EntityManager theEntityManager) {
         this.entityManager = theEntityManager;
     }
 

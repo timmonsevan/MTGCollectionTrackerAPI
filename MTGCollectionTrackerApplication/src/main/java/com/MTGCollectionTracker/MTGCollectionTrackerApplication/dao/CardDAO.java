@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * CRUD interface for accessing DatabaseCard in local database
+ *
  * @author timmonsevan
  */
 

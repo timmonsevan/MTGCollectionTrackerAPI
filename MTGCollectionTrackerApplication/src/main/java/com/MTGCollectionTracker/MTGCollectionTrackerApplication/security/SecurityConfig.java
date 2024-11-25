@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 /**
  * security configurations for application
+ *
  * @author timmonsevan
  */
 @Configuration
@@ -38,9 +39,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeHttpRequests(configurer ->
-                configurer
-                        .anyRequest().authenticated()
-        )
+                        configurer
+                                .anyRequest().authenticated()
+                )
                 .formLogin(form ->
                         form
                                 .loginPage("/loginPage")

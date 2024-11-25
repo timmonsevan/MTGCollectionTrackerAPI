@@ -4,27 +4,28 @@ import java.util.List;
 
 /**
  * interface for CRUD methods to be utilized by controllers
+ *
  * @author timmonsevan
  */
 public interface CardService {
 
-    public DatabaseCard findById(long id);
+    DatabaseCard findById(long id);
 
-    public String viewCollection();
+    String viewCollection();
 
-    public List<DatabaseCard> listCollection();
+    List<DatabaseCard> listCollection();
 
-    public String searchCollectionByName(String cardName) throws ClassNotFoundException;
+    String searchCollectionByName(String cardName) throws ClassNotFoundException;
 
-    public String addNewCard(String cardName, String numCards) throws ClassNotFoundException;
+    String addNewCard(String cardName, String numCards) throws ClassNotFoundException;
 
-    public String addNewCard(String cardName, String numCards, String set) throws ClassNotFoundException;
+    String addNewCard(String cardName, String numCards, String set) throws ClassNotFoundException;
 
-    public String updateCard(String cardName, String numCards) throws ClassNotFoundException;
+    String updateCard(String cardName, String numCards) throws ClassNotFoundException;
 
-    public String updateCard(String cardName, String numCards, String set) throws ClassNotFoundException;
+    String updateCard(String cardName, String numCards, String set) throws ClassNotFoundException;
 
-    public String removeCardFromCollection(String cardName);
+    String removeCardFromCollection(String cardName);
 
-    public String removeCardFromCollection(long id);
+    String removeCardFromCollection(long id);
 }
