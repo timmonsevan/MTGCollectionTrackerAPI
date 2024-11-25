@@ -11,7 +11,7 @@ public interface CardDAO {
 
     void save(DatabaseCard theDatabaseCard);
 
-    DatabaseCard findById(Integer id);
+    DatabaseCard findById(Long id);
 
     List<DatabaseCard> findAll();
 
@@ -21,5 +21,5 @@ public interface CardDAO {
 
     void delete(String name);
 
-    void delete(int id);
+    void delete(long id);
 }

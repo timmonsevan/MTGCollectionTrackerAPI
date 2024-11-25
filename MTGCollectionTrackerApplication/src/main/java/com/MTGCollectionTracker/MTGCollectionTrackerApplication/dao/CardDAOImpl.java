@@ -38,7 +38,7 @@ public class CardDAOImpl implements CardDAO{
      * find a card by its Id in stored database
      */
     @Override
-    public DatabaseCard findById(Integer id) {
+    public DatabaseCard findById(Long id) {
         if (id != null) {
             return entityManager.find(DatabaseCard.class, id);
         } else {
@@ -117,7 +117,7 @@ public class CardDAOImpl implements CardDAO{
      * remove a card from collection via the card's Id number in the stored database
      */
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
 
         try {
             DatabaseCard card = findById(id);

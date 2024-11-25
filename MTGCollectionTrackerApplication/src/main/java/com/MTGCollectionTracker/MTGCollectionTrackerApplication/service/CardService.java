@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface CardService {
 
-    public DatabaseCard findById(int id);
+    public DatabaseCard findById(long id);
 
     public String viewCollection();
 
@@ -26,5 +26,5 @@ public interface CardService {
 
     public String removeCardFromCollection(String cardName);
 
-    public String removeCardFromCollection(int id);
+    public String removeCardFromCollection(long id);
 }
