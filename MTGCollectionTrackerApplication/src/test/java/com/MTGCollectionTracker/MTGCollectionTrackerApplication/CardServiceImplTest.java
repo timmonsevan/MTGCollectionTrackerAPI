@@ -79,11 +79,7 @@ public class CardServiceImplTest {
         Long nullId = null;
 
         assertEquals("Time Warp", cardService.findById(id).getName());
-
-        try {
-            assertNull(cardService.findById(nullId));
-        } catch (NullPointerException ignore) {
-        }
+        assertThrows(NullPointerException.class, () -> cardService.findById(nullId));
     }
 
     /**
